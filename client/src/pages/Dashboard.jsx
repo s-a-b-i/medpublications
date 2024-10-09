@@ -153,7 +153,9 @@ const Dashboard = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}
+      className={`min-h-screen ${theme === 'dark' 
+        ? 'bg-gray-900 text-white' 
+        : 'bg-gradient-to-r from-blue-100 to-teal-100 text-gray-800'}`}
     >
       <div className="container mx-auto px-4 py-8 pt-28">
         {isLoading || isOperationLoading ? ( // Show loader if loading or performing operations

@@ -1,84 +1,3 @@
-// // LandingPage.jsx
-// import React, { useContext } from 'react';
-// import { motion } from 'framer-motion';
-// import { ThemeContext } from '../components/ThemeContext';
-// import { Link } from 'react-router-dom';
-// import MembersSection from '../components/MembersSection';
-// import img from '../assets/img.png';
-
-// const LandingPage = () => {
-//   const { theme } = useContext(ThemeContext);
-
-//   return (
-//     <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
-//       <HeroSection theme={theme} />
-//       <MembersSection theme={theme} />
-//     </div>
-//   );
-// };
-
-// const HeroSection = ({ theme }) => {
-//   return (
-//     <section className={`pt-32 md:pt-20 min-h-screen flex flex-col items-center justify-center 
-//       bg-gradient-to-br from-teal-800 to-cyan-700 text-white overflow-hidden relative`}
-//     >
-//       <div className="absolute inset-0 md:hidden">
-//         <div className="absolute inset-0 bg-black opacity-60"></div>
-//         <img
-//           src={img}
-//           alt="Hero Background"
-//           className="w-full h-full object-cover pt-14"
-//         />
-//       </div>
-//       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center relative z-10">
-//         <div className="w-full md:w-1/2 mb-8 md:mb-0 text-center md:text-left">
-//           <motion.h1
-//             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-sans"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.5 }}
-//           >
-//             From Diagnosis to Treatment
-//           </motion.h1>
-//           <motion.p
-//             className="text-lg md:text-xl mb-8 font-inter"
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.5, delay: 0.2 }}
-//           >
-//            Exploring Degeneration, Neurometrics, Tissue Breakdown, and Bioinformatics
-//           </motion.p>
-//           <Link to="/Publications">
-//             <motion.button
-//               className="bg-teal-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-teal-600 transition duration-300 font-sans"
-//               whileHover={{ scale: 1.05 }}
-//               whileTap={{ scale: 0.95 }}
-//             >
-//               Explore Our Publications
-//             </motion.button>
-//           </Link>
-//         </div>
-//         <div className="w-full md:w-1/2 hidden md:block">
-//           <motion.div
-//             initial={{ opacity: 0, x: 100 }}
-//             animate={{ opacity: 1, x: 0 }}
-//             transition={{ duration: 0.5, delay: 0.3 }}
-//           >
-//             <img
-//               src={img}
-//               alt="Hero Image"
-//               className="w-full h-auto "
-//             />
-//           </motion.div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default LandingPage;
-
-
 import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { ThemeContext } from '../components/ThemeContext';
@@ -90,7 +9,9 @@ const LandingPage = () => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <div className={`min-h-screen ${theme === 'dark' 
+      ? 'bg-gray-900 text-white' 
+      : 'bg-gradient-to-r from-blue-100 to-teal-100 text-gray-800'}`}>
       <HeroSection theme={theme} />
       <MembersSection theme={theme} />
     </div>
