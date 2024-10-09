@@ -110,7 +110,7 @@ const PublicationsPage = () => {
   }, []);
 
   return (
-    <div className={`pt-20 min-h-screen${theme === 'dark' 
+    <div className={`pt-20 min-h-screen ${theme === 'dark' 
       ? 'bg-gray-900 text-white' 
       : 'bg-gradient-to-r from-blue-100 to-teal-100 text-gray-800'}`}>
       <div className="container mx-auto px-4 py-8">

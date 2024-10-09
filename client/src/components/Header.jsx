@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeContext } from './ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +12,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isAuthenticated = !!localStorage.getItem('user');
+  const headerRef = useRef(null);
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -37,8 +38,21 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <header className="fixed top-5 left-10 right-10 z-50 flex items-center justify-between p-4 bg-gray-800 text-white rounded-3xl">
+    <header ref={headerRef} className="fixed top-5 left-10 right-10 z-50 flex items-center justify-between p-4 bg-gray-800 text-white rounded-full">
       <div className="flex items-center">
         <motion.img
           src={logo}
@@ -59,7 +73,7 @@ const Header = () => {
           <Link
             key={link.path}
             to={link.path}
-            className={`px-3 py-2 rounded-2xl transition-all duration-300 ${
+            className={`px-3 py-2 rounded-full transition-all duration-300 ${
               location.pathname === link.path
                 ? 'bg-cyan-600 text-white'
                 : 'text-gray-300 hover:bg-gray-700'
@@ -71,7 +85,7 @@ const Header = () => {
         {isAuthenticated && (
           <Link
             to="/dashboard"
-            className={`px-3 py-2 rounded-2xl transition-all duration-300 ${
+            className={`px-3 py-2 rounded-full transition-all duration-300 ${
               location.pathname === '/dashboard'
                 ? 'bg-cyan-600 text-white'
                 : 'text-gray-300 hover:bg-gray-700'
@@ -119,7 +133,7 @@ const Header = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.nav
-            className="absolute top-full left-0 right-0 flex flex-col items-start p-4 bg-gray-800 text-white rounded-b-3xl lg:hidden"
+            className="absolute top-full left-0 right-0 flex flex-col items-start p-4 bg-gray-800 text-white rounded-b-3xl lg:hidden mt-2"
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -130,7 +144,7 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-2 rounded-2xl my-1 w-full transition-all duration-300 ${
+                className={`px-3 py-2 rounded-full my-1 w-full transition-all duration-300 ${
                   location.pathname === link.path
                     ? 'bg-cyan-600 text-white'
                     : 'text-gray-300 hover:bg-gray-700'
@@ -143,7 +157,7 @@ const Header = () => {
             {isAuthenticated && (
               <Link
                 to="/dashboard"
-                className={`px-3 py-2 rounded-2xl my-1 w-full transition-all duration-300 ${
+                className={`px-3 py-2 rounded-full my-1 w-full transition-all duration-300 ${
                   location.pathname === '/dashboard'
                     ? 'bg-cyan-600 text-white'
                     : 'text-gray-300 hover:bg-gray-700'
@@ -181,7 +195,7 @@ const Web3LoginButton = () => {
             boxShadow: "0px 0px 15px 5px rgba(0, 220, 255, 0.6)",
             transition: { duration: 0.4 },
           }}
-          className="px-2 py-2 text-base sm:px-6 sm:py-3 sm:text-lg rounded-xl bg-gradient-to-r from-purple-500 to-blue-600 text-white font-semibold shadow-lg transform transition-all ease-in-out duration-500"
+          className="px-2 py-2 text-base sm:px-6 sm:py-3 sm:text-lg rounded-full bg-gradient-to-r from-purple-500 to-blue-600 text-white font-semibold shadow-lg transform transition-all ease-in-out duration-500"
         >
           <span className="relative z-10">Login</span>
         </motion.button>
