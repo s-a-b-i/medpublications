@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@media (max-width: 640px) {  /* for small screens */
+    iframe {
+      height: 300px;  /* Adjusting height */
+      width: 100%;   /* Ensures no horizontal scrolling */
+      max-width: 100%;  /* Prevents overflow */
+    }
+  }
+  
+
+  .member-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  
+  .member-card.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
