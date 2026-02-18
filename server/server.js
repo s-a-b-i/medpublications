@@ -24,14 +24,21 @@ app.use(cookieParser());
 // Update CORS to allow your Render domain
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://medpublications.onrender.com' // REPLACE with your actual Render URL
+  'https://medpublications.onrender.com', // Primary domain
+  'https://medpublications.onrender.com/' // With trailing slash
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    const isAllowed = allowedOrigins.some(allowed => origin.startsWith(allowed));
+
+    if (isAllowed) {
       callback(null, true);
     } else {
+      console.log('CORS blocked for origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },

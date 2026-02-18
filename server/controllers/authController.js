@@ -13,21 +13,21 @@ export const login = async (req, res) => {
 
   try {
     console.log('Login attempt for user:', username);
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username: username.trim() });
 
-    if (user && (await user.matchPassword(password))) {
+    if (user && (await user.matchPassword(password.trim()))) {
       const accessToken = generateToken(user._id);
 
       // Set HTTP-only cookie
       res.cookie('jwt', accessToken, {
         httpOnly: true,
         secure: true,      // Required for HTTPS on Render
-        sameSite: 'lax',   // 'lax' is much more stable on mobile Chrome/Safari
+        sameSite: 'none',   // 'none' is often required for cross-site cookies on mobile browsers
         path: '/',         // Ensure cookie is available on all paths
         maxAge: 24 * 60 * 60 * 1000 // 1 day
       });
 
-      console.log('Login successful for user:', username);
+      console.log('Login successful for user:', user.username);
       res.json({
         _id: user._id,
         username: user.username,

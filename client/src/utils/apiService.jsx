@@ -5,7 +5,10 @@ const API_URL = '/api';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  withCredentials: true // This ensures cookies are sent every time
+  withCredentials: true, // This ensures cookies are sent every time
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 export const login = async (username, password) => {

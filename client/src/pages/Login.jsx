@@ -15,7 +15,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userData = await login(username, password);
+      const trimmedUsername = username.trim();
+      const trimmedPassword = password.trim();
+      const userData = await login(trimmedUsername, trimmedPassword);
       localStorage.setItem('user', JSON.stringify(userData));
       const from = location.state?.from?.pathname || '/dashboard';
       navigate(from, { replace: true });
@@ -27,18 +29,18 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 to-teal-100 py-12 px-4 sm:px-6 lg:px-8">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl"
       >
         <div>
-          <motion.img 
+          <motion.img
             whileHover={{ scale: 1.1 }}
-            className="mx-auto h-20 w-auto" 
-            src={logo} 
-            alt="MedPublication Logo" 
+            className="mx-auto h-20 w-auto"
+            src={logo}
+            alt="MedPublication Logo"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             MedPublication Admin
@@ -48,10 +50,10 @@ const Login = () => {
           </p>
         </div>
         {error && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md" 
+            className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md"
             role="alert"
           >
             <p className="font-bold">Error</p>
@@ -69,6 +71,9 @@ const Login = () => {
                 required
                 className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm transition duration-300"
                 placeholder="Username"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck="false"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
