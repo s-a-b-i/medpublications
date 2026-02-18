@@ -1,17 +1,13 @@
 // import mongoose from 'mongoose';
 // import dotenv from 'dotenv';
-// import User from './models/User.js'; // Adjust the path to your User model
-// import bcrypt from 'bcryptjs';
+// import User from './models/User.js';
 
 // dotenv.config();
 
 // // Connect to MongoDB
 // const connectDB = async () => {
 //     try {
-//         await mongoose.connect(process.env.MONGODB_URI, {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true,
-//         });
+//         await mongoose.connect(process.env.MONGODB_URI);
 //         console.log('MongoDB connected successfully');
 //     } catch (error) {
 //         console.error('MongoDB connection error:', error);
@@ -26,27 +22,25 @@
 
 //         if (existingAdmin) {
 //             console.log('Admin user already exists');
-//             process.exit();
+//             process.exit(0);
 //         }
 
 //         const username = process.env.ADMIN_USERNAME || 'husnain';
 //         const password = process.env.ADMIN_PASSWORD || 'husnA123';
 
-//         // Hash the password
-//         const salt = await bcrypt.genSalt(10);
-//         const hashedPassword = await bcrypt.hash(password, salt);
-
+//         // Don't hash here - let the model's pre('save') hook handle it
 //         const adminUser = new User({
 //             username,
-//             password: hashedPassword,
+//             password,  // Pass plain password, model will hash it
 //             role: 'admin',
 //         });
 
 //         await adminUser.save();
-//         console.log(`Admin user created with username: ${username}`);
-//         process.exit();
+//         console.log(`✓ Admin user created successfully`);
+//         console.log(`  Username: ${username}`);
+//         process.exit(0);
 //     } catch (error) {
-//         console.error('Error creating admin user:', error);
+//         console.error('✗ Error creating admin user:', error.message);
 //         process.exit(1);
 //     }
 // };
