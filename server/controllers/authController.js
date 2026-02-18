@@ -21,9 +21,10 @@ export const login = async (req, res) => {
       // Set HTTP-only cookie
       res.cookie('jwt', accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 15 * 60 * 1000 // 15 minutes
+        secure: true,      // Required for HTTPS on Render
+        sameSite: 'lax',   // 'lax' is much more stable on mobile Chrome/Safari
+        path: '/',         // Ensure cookie is available on all paths
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
       });
 
       console.log('Login successful for user:', username);
